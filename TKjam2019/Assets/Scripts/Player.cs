@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private PlayerModel playerModel;
+
+    [SerializeField] private FollowPlayer followPlayer;
     public float speed;
 
     void Start()
@@ -26,6 +28,6 @@ public class Player : MonoBehaviour
 playerModel.transform.position = new Vector3(transform.position.x, playerModel.transform.position.y, transform.position.z);
         rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
         
-        
+        followPlayer.Follow(transform.position, horizontal, vertical);
     }
 }
