@@ -8,6 +8,10 @@ public class Trees : MonoBehaviour
 
     public float infectTreeAfter;
 
+    public AudioClip infectTreeClip;
+
+    AudioSource audioSource;
+
     delegate void ProcessHit(RaycastHit hit);
 
     void ProcessRayCast(ProcessHit processHit)
@@ -22,8 +26,16 @@ public class Trees : MonoBehaviour
 
     void Start()
     {
+        InitAudio();
         InfectTree();
         InvokeRepeating("InfectTree", infectTreeAfter, infectTreeAfter);
+    }
+
+    void InitAudio()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
     }
 
     void Update()
@@ -62,6 +74,7 @@ public class Trees : MonoBehaviour
         {
             Tree randomTree = trees[Random.Range(0, trees.Length)];
             randomTree.SetInfected();
+            audioSource.PlayOneShot(infectTreeClip);
         }
     }
 
