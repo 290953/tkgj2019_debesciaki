@@ -111,7 +111,7 @@ MonoBehaviour:
   naniteColor: {r: 1, g: 0, b: 0, a: 1}
   destroyedColor: {r: 0, g: 0, b: 0, a: 1}
   timeToNanite: 5
-  timeToInfect: 2
+  timeToInfect: 2.5
   infectRadius: 3
   state: 0
 --- !u!136 &2304404269379692128
