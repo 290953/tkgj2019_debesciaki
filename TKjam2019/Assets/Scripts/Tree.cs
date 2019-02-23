@@ -1,27 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 
 public class Tree : MonoBehaviour
 {
+    public Color growingColor = Color.yellow;
     public Color normalColor = Color.green;
+    public Color magicalColor = Color.magenta;
     public Color infectedColor = Color.blue;
     public Color naniteColor = Color.red;
+    public Color metalColor = Color.gray;
     public Color destroyedColor = Color.black;
 
     public float timeToNanite = 5f;
     public float timeToInfect = 2f;
+    public float timeToSpreadGrow = 2f;
+    public float timeToNormal = 5f;
     public float infectRadius = 3f;
+    public float spreadGrowRadius = 3f;
+    public int maxInfectLoads = 5;
+    public int maxSpreadGrowLoads = 5;
 
     public enum State
     {
+        GROWING,
         NORMAL,
+        MAGICAL,
         INFECTED,
         NANITE,
+        METAL,
         DESTROYED
     }
-
-    public State state;
 
     public State MyState
     {
@@ -29,7 +39,7 @@ public class Tree : MonoBehaviour
         {
             return state;
         }
-        set
+        private set
         {
             if (state == value)
             {
@@ -39,33 +49,88 @@ public class Tree : MonoBehaviour
 
             switch (state)
             {
+                case State.GROWING:
+                    meshRenderer.material.color = growingColor;
+                    Invoke("SetNormal", timeToNormal);
+                    break;
                 case State.NORMAL:
                     meshRenderer.material.color = normalColor;
                     break;
+                case State.MAGICAL:
+                    meshRenderer.material.color = magicalColor;
+                    Invoke("SpreadGrow", timeToSpreadGrow);
+                    break;
                 case State.INFECTED:
                     meshRenderer.material.color = infectedColor;
-                    Invoke("SetToNaniteState", timeToNanite);
+                    Invoke("SetNanite", timeToNanite);
                     break;
                 case State.NANITE:
                     meshRenderer.material.color = naniteColor;
                     Invoke("Infect", timeToInfect);
                     break;
+                case State.METAL:
+                    meshRenderer.material.color = metalColor;
+                    break;
                 case State.DESTROYED:
-                    SetDestroyed();
+                    CapsuleCollider theCollider = GetComponent<CapsuleCollider>();
+                    theCollider.enabled = false;
+                    meshRenderer.material.color = destroyedColor;
                     break;
             }
 
         }
     }
 
+    State state;
     MeshRenderer meshRenderer;
+    int infectLoads;
+    int spreadGrowLoads;
 
-    private void SetDestroyed()
+
+    public bool SetDestroyed()
     {
-        CapsuleCollider theCollider = GetComponent<CapsuleCollider>();
-        theCollider.enabled = false;
-        meshRenderer.material.color = destroyedColor;
+        if (MyState == State.NORMAL || MyState == State.INFECTED)
+        {
+            MyState = State.DESTROYED;
+            return true;
+        }
+        return false;
 
+    }
+
+    public void SetInfected()
+    {
+        if (MyState == State.NORMAL)
+        {
+            MyState = State.INFECTED;
+        }
+    }
+
+    public bool SetMagical()
+    {
+        if(MyState == State.NORMAL || MyState == State.INFECTED)
+        {
+            MyState = State.MAGICAL;
+            spreadGrowLoads = maxSpreadGrowLoads;
+            return true;
+        }
+        return false;
+    }
+
+    public void SetGrowing()
+    {
+        if (MyState == State.DESTROYED)
+        {
+            MyState = State.GROWING;
+        }
+    }
+
+    public void SetNormal()
+    {
+        if (MyState == State.GROWING || MyState == State.METAL)
+        {
+            MyState = State.NORMAL;
+        }
     }
 
     private void Awake()
@@ -74,52 +139,78 @@ public class Tree : MonoBehaviour
         MyState = State.NORMAL;
     }
 
-    void SetToNaniteState()
+    void SetNanite()
     {
-        MyState = State.NANITE;
+        if (MyState == State.INFECTED)
+        {
+            MyState = State.NANITE;
+            infectLoads = maxInfectLoads;
+        }
     }
 
     void Infect()
     {
-        if (MyState == State.DESTROYED)
+        if (MyState != State.NANITE)
         {
             return;
         }
+        Tree[] treesInRange = GetTreesInRange(infectRadius).
+            Where(x => x.MyState == State.NORMAL).ToArray();
+
+        if (treesInRange.Length > 0)
+        {
+            Tree treeToInfect = treesInRange[Random.Range(0, treesInRange.Length)];
+            treeToInfect.SetInfected();
+        }
+        infectLoads -= 1;
+        if (infectLoads > 0)
+        {
+            Invoke("Infect", timeToInfect);
+        }
+        else
+        {
+            MyState = State.METAL;
+        }
+    }
+
+    void SpreadGrow()
+    {
+        if (MyState != State.MAGICAL)
+        {
+            return;
+        }
+        Tree[] treesInRange = GetTreesInRange(infectRadius).
+            Where(x => x.MyState == State.DESTROYED).ToArray();
+        if (treesInRange.Length > 0)
+        {
+            Tree treeToInfect = treesInRange[Random.Range(0, treesInRange.Length)];
+            treeToInfect.SetGrowing();
+        }
+        spreadGrowLoads -= 1;
+        if (spreadGrowLoads > 0)
+        {
+            Invoke("SpreadGrow", timeToSpreadGrow);
+        }
+        else
+        {
+            MyState = State.NORMAL;
+        }
+    }
+
+    List<Tree> GetTreesInRange(float range)
+    {
         Tree[] trees = transform.parent.GetComponentsInChildren<Tree>();
-        Debug.Log("trees: " + trees.Length);
         List<Tree> treesInRange = new List<Tree>();
-        foreach(Tree tree in trees)
+        foreach (Tree tree in trees)
         {
             float distance = Vector3.Magnitude(transform.position - tree.transform.position);
-            if (distance < infectRadius && tree != this)
+            if (distance < range && tree != this)
             {
                 treesInRange.Add(tree);
             }
         }
-        Debug.Log("trees in range: " + treesInRange.Count);
-        if (treesInRange.Count > 0)
-        {
-            Tree treeToInfect = treesInRange[Random.Range(0, treesInRange.Count)];
-            if (treeToInfect.MyState == State.NORMAL)
-            {
-                treeToInfect.MyState = State.INFECTED;
-            }
-        }
-        Invoke("Infect", timeToInfect);
+        return treesInRange;
     }
 
-    void OnTriggerStay(Collider col)
-    {
-  
-        if (col.gameObject.name == "Player")
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                if(MyState == State.NORMAL)
-                {
-                    MyState = State.DESTROYED;
-                }
-            }
-        }
-    }
+
 }
