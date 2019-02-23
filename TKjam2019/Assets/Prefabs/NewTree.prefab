@@ -113,8 +113,8 @@ MonoBehaviour:
   naniteColor: {r: 1, g: 0, b: 0, a: 1}
   metalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   destroyedColor: {r: 0, g: 0, b: 0, a: 1}
-  timeToNanite: 7
-  timeToInfect: 7
+  timeToNanite: 9
+  timeToInfect: 6
   timeToSpreadGrow: 2
   timeToNormal: 5
   infectRadius: 4
