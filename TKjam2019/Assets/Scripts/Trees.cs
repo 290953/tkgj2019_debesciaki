@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -40,6 +41,11 @@ public class Trees : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             ProcessRayCast((hit) =>
