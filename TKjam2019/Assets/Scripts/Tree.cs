@@ -78,6 +78,8 @@ public class Tree : MonoBehaviour
                     break;
             }
 
+            parent.OnTreeStateChanged();
+
         }
     }
 
@@ -85,6 +87,7 @@ public class Tree : MonoBehaviour
     MeshRenderer meshRenderer;
     int infectLoads;
     int spreadGrowLoads;
+    Trees parent;
 
     public bool SetDestroyed()
     {
@@ -135,7 +138,9 @@ public class Tree : MonoBehaviour
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+        parent = GetComponentInParent<Trees>();
         MyState = State.NORMAL;
+
     }
 
     void SetNanite()

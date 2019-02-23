@@ -7,6 +7,8 @@ public class GameUi : MonoBehaviour
 {
     public Text playerLabel;
     public Text shrineLabel;
+    public Text treesLabel;
+    public Text gameOverLabel;
 
 
     int acidLoads;
@@ -46,5 +48,13 @@ public class GameUi : MonoBehaviour
         shrineLabel.text = "shrine: " + shrineLoads + "/" + shrineMaxLoads;
     }
 
+    public void UpdateTrees(int trees)
+    {
+        treesLabel.text = "trees: " + trees;
+    }
 
+    public void SetGameOver()
+    {
+        gameOverLabel.gameObject.SetActive(true);
+    }
 }

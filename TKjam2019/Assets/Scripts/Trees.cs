@@ -13,6 +13,8 @@ public class Trees : MonoBehaviour
 
     AudioSource audioSource;
 
+    GameUi gameUi;
+
     delegate void ProcessHit(RaycastHit hit);
 
     void ProcessRayCast(ProcessHit processHit)
@@ -28,7 +30,12 @@ public class Trees : MonoBehaviour
     void Start()
     {
         InitAudio();
-        InfectTree();
+        GameObject gameUiObject = GameObject.Find("GameUi");
+        if (gameUiObject != null)
+        {
+            gameUi = gameUiObject.GetComponent<GameUi>();
+        }
+            InfectTree();
         InvokeRepeating("InfectTree", infectTreeAfter, infectTreeAfter);
     }
 
@@ -98,4 +105,26 @@ public class Trees : MonoBehaviour
         }
 
     }
+
+    public void OnTreeStateChanged()
+    {
+        Tree[] goodTrees =
+            transform.GetComponentsInChildren<Tree>().Where(x => 
+                x.MyState == Tree.State.GROWING ||
+                x.MyState == Tree.State.NORMAL ||
+                x.MyState == Tree.State.INFECTED ||
+                x.MyState == Tree.State.MAGICAL
+            ).ToArray();
+        if (gameUi != null)
+        {
+            gameUi.UpdateTrees(goodTrees.Length);
+            if (goodTrees.Length <= 0)
+            {
+                gameUi.SetGameOver();
+            }
+        }
+
+    }
+
+
 }
