@@ -17,8 +17,8 @@ public class Source : MonoBehaviour
 
     private void Awake()
     {
-        loads = maxLoads;
-        InvokeRepeating("Renew", timeToRenew, timeToRenew);
+        //loads = maxLoads;
+        //InvokeRepeating("Renew", timeToRenew, timeToRenew);
         InitAudio();
     }
 
@@ -39,16 +39,8 @@ public class Source : MonoBehaviour
 
     public int GetLoad()
     {
-        if (loads > 0)
-        {
-            loads--;
-            audioSource.PlayOneShot(loadTakenClip);
-            return 1;
-        }
-        else
-        {
-            audioSource.PlayOneShot(sourceEmptyClip);
-            return 0;
-        }
+        audioSource.PlayOneShot(loadTakenClip);
+        return 1;
+
     }
 }
