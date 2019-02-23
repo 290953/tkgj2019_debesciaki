@@ -86,7 +86,6 @@ public class Tree : MonoBehaviour
     int infectLoads;
     int spreadGrowLoads;
 
-
     public bool SetDestroyed()
     {
         if (MyState == State.NORMAL || MyState == State.INFECTED)

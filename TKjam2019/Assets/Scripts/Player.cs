@@ -210,7 +210,7 @@ public class Player : MonoBehaviour
             {
                 WaterLoads -= 1;
             }
-            audioSource.PlayOneShot(null);
+            audioSource.PlayOneShot(useWaterClip);
         }
     }
 }
