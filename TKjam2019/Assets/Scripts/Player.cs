@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int acidLoads = 0;
-    public int waterLoads = 5;
+    int acidLoads = 0;
+    int waterLoads = 5;
     public int maxLoads = 5;
+
+    public KeyCode actionKey = KeyCode.E;
 
     private Rigidbody rb;
 
@@ -16,11 +18,53 @@ public class Player : MonoBehaviour
     [SerializeField] private FollowPlayer followPlayer;
     public float speed;
     Collider collision;
+    GameUi gameUi;
+
+    int WaterLoads
+    {
+        get
+        {
+            return waterLoads;
+        }
+        set
+        {
+            waterLoads = value;
+            if (gameUi != null)
+            {
+                gameUi.UpdateWaterLoads(waterLoads);
+            }
+        }
+    }
+
+    int AcidLoads
+    {
+        get
+        {
+            return acidLoads;
+        }
+        set
+        {
+            acidLoads = value;
+            if (gameUi != null)
+            {
+                gameUi.UpdateAcidLoads(acidLoads);
+            }
+        }
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        GameObject gameUiObject = GameObject.Find("GameUi");
+        if (gameUiObject != null)
+        {
+            gameUi = gameUiObject.GetComponent<GameUi>();
+            gameUi.UpdateWaterLoads(waterLoads);
+            gameUi.UpdateAcidLoads(acidLoads);
+            gameUi.UpdateMaxLoads(maxLoads);
+        }
 
     }
 
@@ -45,9 +89,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(actionKey))
         {
-            HandleCollision(collision, KeyCode.E);
+            HandleCollision(collision);
         }
 
     }
@@ -62,7 +106,7 @@ public class Player : MonoBehaviour
         collision = null;
     }
 
-    void HandleCollision(Collider col, KeyCode key)
+    void HandleCollision(Collider col)
     {
         if (col == null)
         {
@@ -70,98 +114,84 @@ public class Player : MonoBehaviour
         }
         if (col.CompareTag("Tree"))
         {
-            HandleTree(col, key);
+            HandleTree(col);
         }
         else if (col.CompareTag("WaterSource"))
         {
-            HandleWaterSource(col, key);
+            HandleWaterSource(col);
         }
         else if (col.CompareTag("AcidSource"))
         {
-            HandleAcidSource(col, key);
+            HandleAcidSource(col);
         }
         else if (col.CompareTag("Shrine"))
         {
-            HandleShrine(col, key);
+            HandleShrine(col);
         }
     }
 
-    void HandleWaterSource(Collider col, KeyCode key)
+    void HandleWaterSource(Collider col)
     {
         Source source = col.GetComponent<Source>();
-        if (key == KeyCode.E)
+        Debug.LogWarning("adding water");
+        if (AcidLoads <= 0 && WaterLoads < maxLoads)
         {
-
-            Debug.LogWarning("adding water");
-            if (acidLoads <= 0 && waterLoads < maxLoads)
-            {
-                waterLoads += source.GetLoad();
-            }
+            WaterLoads += source.GetLoad();
         }
     }
 
-    void HandleAcidSource(Collider col, KeyCode key)
+    void HandleAcidSource(Collider col)
     {
         Source source = col.GetComponent<Source>();
-        if (key == KeyCode.E)
+        Debug.LogWarning("adding acid");
+        if (WaterLoads <= 0 && AcidLoads < maxLoads)
         {
-
-            Debug.LogWarning("adding acid");
-            if (waterLoads <= 0 && acidLoads < maxLoads)
-            {
-                acidLoads += source.GetLoad();
-            }
+            AcidLoads += source.GetLoad();
         }
     }
 
 
-    void HandleTree(Collider col, KeyCode key)
+    void HandleTree(Collider col)
     {
         Tree tree = col.GetComponent<Tree>();
-        if (key == KeyCode.E)
+        if (AcidLoads > 0)
         {
-            if (acidLoads > 0)
-            {
-                DestroyTree(tree);
-            }
-            else if (waterLoads > 0)
-            {
-                MakeMagicalTree(tree);
-            }
+            DestroyTree(tree);
+        }
+        else if (WaterLoads > 0)
+        {
+            MakeMagicalTree(tree);
         }
     }
 
-    void HandleShrine(Collider col, KeyCode key)
+    void HandleShrine(Collider col)
     {
         Shrine shrine = col.GetComponent<Shrine>();
-        if (key == KeyCode.E)
+        if (WaterLoads > 0)
         {
-            if (waterLoads > 0)
-            {
-                shrine.PutLoad();
-                waterLoads--;
-            }
+            shrine.PutLoad();
+            WaterLoads--;
         }
     }
 
     void DestroyTree(Tree tree)
     {
-        if (acidLoads > 0)
+        if (AcidLoads > 0)
         {
             if (tree.SetDestroyed())
             {
-                acidLoads -= 1;
+                AcidLoads -= 1;
             }
         }
     }
 
     void MakeMagicalTree(Tree tree)
     {
-        if (waterLoads > 0)
+        if (WaterLoads > 0)
         {
             if (tree.SetMagical())
             {
-                waterLoads -= 1;
+                WaterLoads -= 1;
             }
         }
     }
