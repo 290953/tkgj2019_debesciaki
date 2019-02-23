@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e38d491f1e1b4522849ae545777043f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadPutClip: {fileID: 8300000, guid: dba9687bca73c481898c83ead8af4a99, type: 3}
-  treesHealedClip: {fileID: 8300000, guid: 53c8796e5663441dfa064adb809224f0, type: 3}
+  loadPutClip: {fileID: 8300000, guid: 9506d1e05a8d300429345fd52039e5d6, type: 3}
+  treesHealedClip: {fileID: 8300000, guid: 5949bddbeb93f894484925eb3411eb5b, type: 3}
   loadsToActivate: 3
   treesHealed: 10

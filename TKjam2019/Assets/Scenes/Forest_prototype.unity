@@ -5303,7 +5303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infectTreeAfter: 10
-  infectTreeClip: {fileID: 8300000, guid: 7ed26f92da5fb46d4b1e2293bff9e3ff, type: 3}
+  infectTreeClip: {fileID: 8300000, guid: 92f4d0c3cbc4ec94e8205b2a31eaf712, type: 3}
 --- !u!1001 &1549590079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5738,8 +5738,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLoads: 5
   actionKey: 101
-  useWaterClip: {fileID: 8300000, guid: 3e37062033b3342a98cb0265c1c01ae7, type: 3}
-  useAcidClip: {fileID: 8300000, guid: e3b5182b871804f2e8fd61d912382850, type: 3}
+  useWaterClip: {fileID: 8300000, guid: 9506d1e05a8d300429345fd52039e5d6, type: 3}
+  useAcidClip: {fileID: 8300000, guid: 9506d1e05a8d300429345fd52039e5d6, type: 3}
   playerModel: {fileID: 0}
   followPlayer: {fileID: 0}
   speed: 5
