@@ -5,6 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody rb;
+
+    [SerializeField]
+    private PlayerModel playerModel;
+
+    [SerializeField] private FollowPlayer followPlayer;
     public float speed;
 
     void Start()
@@ -18,6 +23,11 @@ public class Player : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        playerModel.isMoving = horizontal != 0 || vertical != 0;
+//        playerModel._rigidbody.velocity = new Vector3(horizontal * speed, playerModel._rigidbody.velocity.y, vertical * speed);
+playerModel.transform.position = new Vector3(transform.position.x, playerModel.transform.position.y, transform.position.z);
         rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
+        
+        followPlayer.Follow(transform.position, horizontal, vertical);
     }
 }
