@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4243772828727625652}
   - component: {fileID: 4656145375244912633}
   - component: {fileID: 790674384}
+  - component: {fileID: 2304404269379692128}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Tree
@@ -108,6 +109,21 @@ MonoBehaviour:
   normalColor: {r: 0, g: 1, b: 0, a: 1}
   infectedColor: {r: 0.36078432, g: 0.63529414, b: 1, a: 1}
   naniteColor: {r: 1, g: 0, b: 0, a: 1}
+  destroyedColor: {r: 0, g: 0, b: 0, a: 1}
   timeToNanite: 5
   timeToInfect: 2
   infectRadius: 3
+--- !u!136 &2304404269379692128
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320117980481229398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.9
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

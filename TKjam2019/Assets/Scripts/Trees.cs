@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Trees : MonoBehaviour
 {
+
+    public float infectTreeAfterSeconds;
 
     delegate void ProcessHit(RaycastHit hit);
 
     void ProcessRayCast(ProcessHit processHit)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100))
         {
             processHit(hit);
         }
@@ -20,7 +22,8 @@ public class Trees : MonoBehaviour
 
     void Start()
     {
-        InfectFirstTree();
+        InfectTree();
+        InvokeRepeating("InfectTree", infectTreeAfterSeconds, infectTreeAfterSeconds);
     }
 
     void Update()
@@ -39,10 +42,10 @@ public class Trees : MonoBehaviour
         }
     }
 
-    void InfectFirstTree()
+    void InfectTree()
     {
-        Tree[] trees = transform.GetComponentsInChildren<Tree>();
-        Tree infectedTree = trees[Random.Range(0, trees.Length)];
-        infectedTree.MyState = Tree.State.INFECTED;
+        Tree[] trees = transform.GetComponentsInChildren<Tree>().Where(x => x.MyState == Tree.State.NORMAL).ToArray();
+        Tree randomTree = trees[Random.Range(0, trees.Length)];
+        randomTree.MyState = Tree.State.INFECTED;
     }
 }

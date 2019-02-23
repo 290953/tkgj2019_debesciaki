@@ -5301,6 +5301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39a56823e0d524bd8baa617b88916959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infectTreeAfterSeconds: 10
 --- !u!1001 &1549590079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5712,9 +5713,10 @@ GameObject:
   - component: {fileID: 1684887316}
   - component: {fileID: 1684887315}
   - component: {fileID: 1684887314}
+  - component: {fileID: 1684887317}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5763,6 +5765,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1684887317
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684887313}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1727492398
 PrefabInstance:
   m_ObjectHideFlags: 0

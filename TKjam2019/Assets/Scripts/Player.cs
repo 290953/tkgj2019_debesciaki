@@ -4,36 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    Rigidbody rb;
-    public float speed = 2.0f;
+    private Rigidbody rb;
+    public float speed;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
     }
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            rb.velocity = transform.right * speed;
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            rb.velocity = -transform.right * speed;
-        }
-
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            rb.velocity = new Vector3(0, 0, 1) * speed;
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            rb.velocity = new Vector3(0, 0, -1) * speed;
-        }
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
     }
 }

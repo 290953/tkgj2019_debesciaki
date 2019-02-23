@@ -23,7 +23,7 @@ public class Tree : MonoBehaviour
     }
 
 
-    private State state;
+    public State state;
 
     public State MyState
     {
@@ -108,9 +108,17 @@ public class Tree : MonoBehaviour
             }
         }
         Invoke("Infect", timeToInfect);
-
-
     }
 
-
+    void OnTriggerStay(Collider col)
+    {
+  
+        if (col.gameObject.name == "Player")
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                MyState = State.DESTROYED;
+            }
+        }
+    }
 }
