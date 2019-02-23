@@ -80,6 +80,10 @@ public class Player : MonoBehaviour
         {
             HandleAcidSource(col, key);
         }
+        else if (col.CompareTag("Shrine"))
+        {
+            HandleShrine(col, key);
+        }
     }
 
     void HandleWaterSource(Collider col, KeyCode key)
@@ -123,6 +127,19 @@ public class Player : MonoBehaviour
             else if (waterLoads > 0)
             {
                 MakeMagicalTree(tree);
+            }
+        }
+    }
+
+    void HandleShrine(Collider col, KeyCode key)
+    {
+        Shrine shrine = col.GetComponent<Shrine>();
+        if (key == KeyCode.E)
+        {
+            if (waterLoads > 0)
+            {
+                shrine.PutLoad();
+                waterLoads--;
             }
         }
     }

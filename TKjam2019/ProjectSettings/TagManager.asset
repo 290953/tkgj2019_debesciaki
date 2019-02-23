@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - WaterSource
   - AcidSource
+  - Shrine
   layers:
   - Default
   - TransparentFX
