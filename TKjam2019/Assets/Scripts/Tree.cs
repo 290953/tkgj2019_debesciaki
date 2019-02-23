@@ -106,13 +106,15 @@ public class Tree : MonoBehaviour
         }
     }
 
-    public void SetMagical()
+    public bool SetMagical()
     {
         if(MyState == State.NORMAL || MyState == State.INFECTED)
         {
             MyState = State.MAGICAL;
             spreadGrowLoads = maxSpreadGrowLoads;
+            return true;
         }
+        return false;
     }
 
     public void SetGrowing()
@@ -210,15 +212,5 @@ public class Tree : MonoBehaviour
         return treesInRange;
     }
 
-    void OnTriggerStay(Collider col)
-    {
-  
-        if (col.gameObject.name == "Player")
-        {
-            if (Input.GetKey(KeyCode.E))
-            {
-                SetDestroyed();
-            }
-        }
-    }
+
 }
