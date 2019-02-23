@@ -17,7 +17,7 @@ public class Trees : MonoBehaviour
     void InfectFirstTree()
     {
         Tree[] trees = transform.GetComponentsInChildren<Tree>();
-        Tree infectedTree = trees[Random.Range(0, trees.Length - 1)];
+        Tree infectedTree = trees[Random.Range(0, trees.Length)];
         infectedTree.MyState = Tree.State.INFECTED;
     }
 }

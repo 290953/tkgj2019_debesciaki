@@ -84,7 +84,7 @@ public class Tree : MonoBehaviour
         Debug.Log("trees in range: " + treesInRange.Count);
         if (treesInRange.Count > 0)
         {
-            Tree treeToInfect = treesInRange[Random.Range(0, treesInRange.Count - 1)];
+            Tree treeToInfect = treesInRange[Random.Range(0, treesInRange.Count)];
             if (treeToInfect.MyState == State.NORMAL)
             {
                 treeToInfect.MyState = State.INFECTED;
