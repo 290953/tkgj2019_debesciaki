@@ -8,7 +8,27 @@ public class Shrine : MonoBehaviour
 
     public int treesHealed = 10;
 
-    public int loads;
+    int loads;
+
+    GameUi gameUi;
+
+    int Loads
+    {
+        get
+        {
+            return loads;
+        }
+        set
+        {
+            loads = value;
+            if (gameUi != null)
+            {
+                gameUi.UpdateShrineLoads(loads);
+            }
+        }
+    }
+
+
 
     Trees trees;
 
@@ -20,19 +40,24 @@ public class Shrine : MonoBehaviour
         {
             trees = treesObject.GetComponent<Trees>();
         }
+        GameObject gameUiObject = GameObject.Find("GameUi");
+        if (gameUiObject != null)
+        {
+            gameUi = gameUiObject.GetComponent<GameUi>();
+            gameUi.UpdateShrineMaxLoads(loadsToActivate);
+
+        }
     }
-
-
 
     public void PutLoad()
     {
-        loads++;
+        Loads++;
         Debug.LogWarning("shrine loads: " + loads);
-        if (loads >= loadsToActivate)
+        if (Loads >= loadsToActivate)
         {
             Debug.LogWarning("healing trees");
             trees.HealMetalTrees(treesHealed);
-            loads = 0;
+            Loads = 0;
         }
     }
 }
