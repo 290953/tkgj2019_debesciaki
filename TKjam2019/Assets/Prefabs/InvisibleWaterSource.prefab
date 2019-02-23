@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 346804377459410706}
   - component: {fileID: 4991984203013921056}
+  - component: {fileID: 671611622448286590}
   m_Layer: 0
   m_Name: InvisibleWaterSource
   m_TagString: WaterSource
@@ -40,10 +41,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6601835785131873451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b64db34fd71142e7aa2c4b1ee32eeba, type: 3}
+  m_Script: {fileID: 11500000, guid: ca5c1d8ebe845450ea2aa3e862f2ab81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   loadTakenClip: {fileID: 8300000, guid: 84954f80ba4ff43488bbbd7d4ff00bb1, type: 3}
-  sourceEmptyClip: {fileID: 8300000, guid: c5ab72b9b12803440a9990841b701855, type: 3}
+  sourceEmptyClip: {fileID: 0}
   maxLoads: 10
   timeToRenew: 10
+--- !u!135 &671611622448286590
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601835785131873451}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0, z: 0}

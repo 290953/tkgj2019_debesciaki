@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    int acidLoads = 0;
-    int waterLoads = 5;
+    public int acidLoads = 0;
+    public int waterLoads = 0;
     public int maxLoads = 5;
 
     public KeyCode actionKey = KeyCode.E;
