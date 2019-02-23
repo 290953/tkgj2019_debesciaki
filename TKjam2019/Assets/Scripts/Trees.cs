@@ -36,7 +36,20 @@ public class Trees : MonoBehaviour
                 if (tree != null)
                 {
                     Debug.Log(tree.name);
-                    tree.MyState = Tree.State.DESTROYED;
+                    tree.SetDestroyed();
+                }
+            });
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            ProcessRayCast((hit) =>
+            {
+                Tree tree = hit.collider.gameObject.GetComponent<Tree>();
+                if (tree != null)
+                {
+                    Debug.Log(tree.name);
+                    tree.SetMagical();
                 }
             });
         }
@@ -45,7 +58,10 @@ public class Trees : MonoBehaviour
     void InfectTree()
     {
         Tree[] trees = transform.GetComponentsInChildren<Tree>().Where(x => x.MyState == Tree.State.NORMAL).ToArray();
-        Tree randomTree = trees[Random.Range(0, trees.Length)];
-        randomTree.MyState = Tree.State.INFECTED;
+        if (trees.Length > 0)
+        {
+            Tree randomTree = trees[Random.Range(0, trees.Length)];
+            randomTree.SetInfected();
+        }
     }
 }
