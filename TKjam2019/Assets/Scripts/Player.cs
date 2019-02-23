@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
 
     public KeyCode actionKey = KeyCode.E;
 
+    public AudioClip useWaterClip;
+    public AudioClip useAcidClip;
+
     private Rigidbody rb;
 
     [SerializeField]
@@ -19,6 +22,8 @@ public class Player : MonoBehaviour
     public float speed;
     Collider collision;
     GameUi gameUi;
+    AudioSource audioSource;
+
 
     int WaterLoads
     {
@@ -66,7 +71,18 @@ public class Player : MonoBehaviour
             gameUi.UpdateMaxLoads(maxLoads);
         }
 
+        InitAudio();
+
     }
+
+    void InitAudio()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+    }
+
+
 
     void FixedUpdate()
     {
@@ -182,6 +198,7 @@ public class Player : MonoBehaviour
             {
                 AcidLoads -= 1;
             }
+            audioSource.PlayOneShot(useAcidClip);
         }
     }
 
@@ -193,6 +210,7 @@ public class Player : MonoBehaviour
             {
                 WaterLoads -= 1;
             }
+            audioSource.PlayOneShot(null);
         }
     }
 }
