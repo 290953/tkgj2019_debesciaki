@@ -6,7 +6,7 @@ using System.Linq;
 public class Trees : MonoBehaviour
 {
 
-    public float infectTreeAfterSeconds;
+    public float infectTreeAfter;
 
     delegate void ProcessHit(RaycastHit hit);
 
@@ -23,7 +23,7 @@ public class Trees : MonoBehaviour
     void Start()
     {
         InfectTree();
-        InvokeRepeating("InfectTree", infectTreeAfterSeconds, infectTreeAfterSeconds);
+        InvokeRepeating("InfectTree", infectTreeAfter, infectTreeAfter);
     }
 
     void Update()

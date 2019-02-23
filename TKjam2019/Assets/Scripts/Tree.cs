@@ -13,7 +13,6 @@ public class Tree : MonoBehaviour
     public float timeToInfect = 2f;
     public float infectRadius = 3f;
 
-
     public enum State
     {
         NORMAL,
@@ -21,7 +20,6 @@ public class Tree : MonoBehaviour
         NANITE,
         DESTROYED
     }
-
 
     public State state;
 
@@ -117,7 +115,10 @@ public class Tree : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E))
             {
-                MyState = State.DESTROYED;
+                if(MyState == State.NORMAL)
+                {
+                    MyState = State.DESTROYED;
+                }
             }
         }
     }
