@@ -28,12 +28,19 @@ public class Player : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        playerModel.isMoving = horizontal != 0 || vertical != 0;
-        //        playerModel._rigidbody.velocity = new Vector3(horizontal * speed, playerModel._rigidbody.velocity.y, vertical * speed);
+        if (playerModel != null)
+        {
+            playerModel.isMoving = horizontal != 0 || vertical != 0;
+
+            //        playerModel._rigidbody.velocity = new Vector3(horizontal * speed, playerModel._rigidbody.velocity.y, vertical * speed);
             playerModel.transform.position = new Vector3(transform.position.x, playerModel.transform.position.y, transform.position.z);
+        }
         rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
-        
-        followPlayer.Follow(transform.position, horizontal, vertical);
+
+        if (followPlayer != null)
+        {
+            followPlayer.Follow(transform.position, horizontal, vertical);
+        }
     }
 
     private void Update()
@@ -42,10 +49,7 @@ public class Player : MonoBehaviour
         {
             HandleCollision(collision, KeyCode.E);
         }
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            HandleCollision(collision, KeyCode.R);
-        }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -112,11 +116,14 @@ public class Player : MonoBehaviour
         Tree tree = col.GetComponent<Tree>();
         if (key == KeyCode.E)
         {
-            DestroyTree(tree);
-        }
-        if (key == KeyCode.R)
-        {
-            MakeMagicalTree(tree);
+            if (acidLoads > 0)
+            {
+                DestroyTree(tree);
+            }
+            else if (waterLoads > 0)
+            {
+                MakeMagicalTree(tree);
+            }
         }
     }
 
