@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
+
 
 public class Trees : MonoBehaviour
 {
@@ -61,5 +63,20 @@ public class Trees : MonoBehaviour
             Tree randomTree = trees[Random.Range(0, trees.Length)];
             randomTree.SetInfected();
         }
+    }
+
+    public void HealMetalTrees(int number)
+    {
+        List<Tree> trees = 
+        new List<Tree>(transform.GetComponentsInChildren<Tree>().Where(x => x.MyState == Tree.State.METAL).ToArray());
+        int count = number;
+        while(trees.Count > 0 && count > 0)
+        {
+            Tree tree = trees[Random.Range(0, trees.Count)];
+            tree.SetNormal();
+            trees.Remove(tree);
+            count--;
+        }
+
     }
 }
