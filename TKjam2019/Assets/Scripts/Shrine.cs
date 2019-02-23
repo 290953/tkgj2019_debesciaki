@@ -2,6 +2,9 @@
 
 public class Shrine : MonoBehaviour
 {
+    public AudioClip loadPutClip;
+    public AudioClip treesHealedClip;
+
     public int loadsToActivate = 10;
 
     public int treesHealed = 10;
@@ -9,6 +12,7 @@ public class Shrine : MonoBehaviour
     int loads;
 
     GameUi gameUi;
+    AudioSource audioSource;
 
     int Loads
     {
@@ -45,6 +49,14 @@ public class Shrine : MonoBehaviour
             gameUi.UpdateShrineMaxLoads(loadsToActivate);
 
         }
+        InitAudio();
+    }
+
+    void InitAudio()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
     }
 
     public void PutLoad()
@@ -56,6 +68,11 @@ public class Shrine : MonoBehaviour
             Debug.LogWarning("healing trees");
             trees.HealMetalTrees(treesHealed);
             Loads = 0;
+            audioSource.PlayOneShot(treesHealedClip);
+        }
+        else
+        {
+            audioSource.PlayOneShot(loadPutClip);
         }
     }
 }
