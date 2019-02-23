@@ -7,16 +7,19 @@ public class Tree : MonoBehaviour
     public Color normalColor = Color.green;
     public Color infectedColor = Color.blue;
     public Color naniteColor = Color.red;
+    public Color destroyedColor = Color.black;
 
     public float timeToNanite = 5f;
     public float timeToInfect = 2f;
     public float infectRadius = 3f;
 
+
     public enum State
     {
         NORMAL,
         INFECTED,
-        NANITE
+        NANITE,
+        DESTROYED
     }
 
 
@@ -49,13 +52,23 @@ public class Tree : MonoBehaviour
                     meshRenderer.material.color = naniteColor;
                     Invoke("Infect", timeToInfect);
                     break;
-
+                case State.DESTROYED:
+                    SetDestroyed();
+                    break;
             }
 
         }
     }
 
     MeshRenderer meshRenderer;
+
+    private void SetDestroyed()
+    {
+        CapsuleCollider theCollider = GetComponent<CapsuleCollider>();
+        theCollider.enabled = false;
+        meshRenderer.material.color = destroyedColor;
+
+    }
 
     private void Awake()
     {
@@ -70,6 +83,10 @@ public class Tree : MonoBehaviour
 
     void Infect()
     {
+        if (MyState == State.DESTROYED)
+        {
+            return;
+        }
         Tree[] trees = transform.parent.GetComponentsInChildren<Tree>();
         Debug.Log("trees: " + trees.Length);
         List<Tree> treesInRange = new List<Tree>();
