@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_TKjam2019.-1480240177.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="MagicOrb.cs" t="Include" />
+        <e p="Scripts" t="Include">
+          <e p="Dialogue.cs" t="Include" />
+          <e p="DialogueHandler.cs" t="Include" />
+          <e p="DialogueStarter.cs" t="Include" />
+          <e p="FollowPlayer.cs" t="Include" />
+          <e p="GameUi.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+          <e p="PlayerModel.cs" t="Include" />
+          <e p="Shrine.cs" t="Include" />
+          <e p="Source.cs" t="Include" />
+          <e p="Tree.cs" t="Include" />
+          <e p="Trees.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+      <e p="TKjam2019.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
