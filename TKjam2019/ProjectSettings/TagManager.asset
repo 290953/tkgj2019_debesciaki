@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tree
   - Acid
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - 
   - PostProcessing
   - PostProcessingGlobal
-  - 
-  - 
+  - Player
+  - PlayerModel
   - 
   - 
   - 

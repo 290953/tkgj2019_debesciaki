@@ -13,7 +13,7 @@ public class PlayerModel : MonoBehaviour
     [SerializeField]
     public Rigidbody _rigidbody;
 
-    private const string floorTag = "Floor";
+    private const string floorTag = "Ground";
     
     // Start is called before the first frame update
     void Start()
@@ -27,17 +27,17 @@ public class PlayerModel : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("Floor") && isMoving)
+        if (other.collider.CompareTag(floorTag) && isMoving)
         {
-            _rigidbody.AddForce(Vector3.up * _jumpForce);
+            //_rigidbody.AddForce(Vector3.up * _jumpForce);
         }
     }
 
     private void OnCollisionStay(Collision other)
     {
-        if (other.collider.CompareTag("Floor") && isMoving)
+        if (other.collider.CompareTag(floorTag) && isMoving)
         {
-            _rigidbody.AddForce(Vector3.up * _jumpForce);
+            //_rigidbody.AddForce(Vector3.up * _jumpForce);
         }
     }
 }
