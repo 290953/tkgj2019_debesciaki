@@ -22,6 +22,11 @@ public class Tree : MonoBehaviour
     public int maxInfectLoads = 5;
     public int maxSpreadGrowLoads = 5;
 
+    [Space] [SerializeField] private Mesh infectedMesh;
+    [SerializeField] private Material infectedMaterial;
+    [SerializeField] private Vector3 infectedScale;
+    [SerializeField] private NaniteBarrier naniteBarrier;
+
     public enum State
     {
         GROWING,
@@ -65,7 +70,7 @@ public class Tree : MonoBehaviour
                     Invoke("SetNanite", timeToNanite);
                     break;
                 case State.NANITE:
-                    meshRenderer.material.color = naniteColor;
+                    naniteBarrier.FadeInBarrier();
                     Invoke("Infect", timeToInfect);
                     break;
                 case State.METAL:
@@ -135,6 +140,7 @@ public class Tree : MonoBehaviour
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+        naniteBarrier.OnNaniteBarrierFullyOpaque += ChangeModelToNanite;
         MyState = State.NORMAL;
     }
 
@@ -194,6 +200,13 @@ public class Tree : MonoBehaviour
         {
             MyState = State.NORMAL;
         }
+    }
+
+    void ChangeModelToNanite()
+    {
+        GetComponent<MeshFilter>().mesh = infectedMesh;
+        GetComponent<MeshRenderer>().material = infectedMaterial;
+        transform.localScale = infectedScale;
     }
 
     List<Tree> GetTreesInRange(float range)
