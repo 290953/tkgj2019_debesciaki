@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class Tree : MonoBehaviour
@@ -151,16 +152,13 @@ public class Tree : MonoBehaviour
         {
             return;
         }
-        
-        Tree[] trees = transform.parent.GetComponentsInChildren<Tree>();
-        List<Tree> treesInRange = GetTreesInRange(infectRadius);
-        if (treesInRange.Count > 0)
+        Tree[] treesInRange = GetTreesInRange(infectRadius).
+            Where(x => x.MyState == State.NORMAL).ToArray();
+
+        if (treesInRange.Length > 0)
         {
-            Tree treeToInfect = treesInRange[UnityEngine.Random.Range(0, treesInRange.Count)];
-            if (treeToInfect.MyState == State.NORMAL)
-            {
-                treeToInfect.SetInfected();
-            }
+            Tree treeToInfect = treesInRange[Random.Range(0, treesInRange.Length)];
+            treeToInfect.SetInfected();
         }
         infectLoads -= 1;
         if (infectLoads > 0)
@@ -179,11 +177,11 @@ public class Tree : MonoBehaviour
         {
             return;
         }
-
-        List<Tree> treesInRange = GetTreesInRange(spreadGrowRadius);
-        if (treesInRange.Count > 0)
+        Tree[] treesInRange = GetTreesInRange(infectRadius).
+            Where(x => x.MyState == State.DESTROYED).ToArray();
+        if (treesInRange.Length > 0)
         {
-            Tree treeToInfect = treesInRange[UnityEngine.Random.Range(0, treesInRange.Count)];
+            Tree treeToInfect = treesInRange[Random.Range(0, treesInRange.Length)];
             treeToInfect.SetGrowing();
         }
         spreadGrowLoads -= 1;
