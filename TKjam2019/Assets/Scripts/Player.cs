@@ -73,9 +73,10 @@ public class Player : MonoBehaviour
         if (gameUiObject != null)
         {
             gameUi = gameUiObject.GetComponent<GameUi>();
+            gameUi.UpdateMaxLoads(maxLoads);
             gameUi.UpdateWaterLoads(waterLoads);
             gameUi.UpdateAcidLoads(acidLoads);
-            gameUi.UpdateMaxLoads(maxLoads);
+
         }
 
         InitAudio();
@@ -169,7 +170,7 @@ public class Player : MonoBehaviour
     {
         Source source = col.GetComponent<Source>();
         Debug.LogWarning("adding water");
-        if (AcidLoads <= 0 && WaterLoads < maxLoads)
+        if (WaterLoads < maxLoads)
         {
             WaterLoads += source.GetLoad();
             playerModel.ChangeColorToWater();
@@ -180,7 +181,7 @@ public class Player : MonoBehaviour
     {
         Source source = col.GetComponent<Source>();
         Debug.LogWarning("adding acid");
-        if (WaterLoads <= 0 && AcidLoads < maxLoads)
+        if (AcidLoads < maxLoads)
         {
             AcidLoads += source.GetLoad();
             playerModel.ChangeColorToAcid();

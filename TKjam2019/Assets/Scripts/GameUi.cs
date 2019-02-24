@@ -27,7 +27,7 @@ public class GameUi : MonoBehaviour
     public void UpdateWaterLoads(int loads)
     {
         waterLoads = loads;
-        acidText.text = waterLoads + "/" + maxLoads;
+        magicText.text = waterLoads + "/" + maxLoads;
     }
 
     public void UpdateMaxLoads(int loads)
