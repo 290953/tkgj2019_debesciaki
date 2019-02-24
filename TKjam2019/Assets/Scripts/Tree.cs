@@ -23,6 +23,8 @@ public class Tree : MonoBehaviour
     public int maxInfectLoads = 5;
     public int maxSpreadGrowLoads = 5;
 
+    public GameObject magicParticles;
+
 
     [Space] [Header("Default")]
     private Transform startTransform;
@@ -70,28 +72,35 @@ public class Tree : MonoBehaviour
             switch (state)
             {
                 case State.GROWING:
+                    magicParticles.SetActive(false);
                     StartCoroutine(Grow());
                     Invoke("SetNormal", timeToNormal);
                     break;
                 case State.NORMAL:
+                    magicParticles.SetActive(false);
                     ChangeModelToTree();
                     break;
                 case State.MAGICAL:
+                    magicParticles.SetActive(true);
                     meshRenderer.material.color = magicalColor;
                     Invoke("SpreadGrow", timeToSpreadGrow);
                     break;
                 case State.INFECTED:
+                    magicParticles.SetActive(false);
                     meshRenderer.material.color = infectedColor;
                     Invoke("SetNanite", timeToNanite);
                     break;
                 case State.NANITE:
+                    magicParticles.SetActive(false);
                     naniteBarrier.FadeInBarrier();
                     Invoke("Infect", timeToInfect);
                     break;
                 case State.METAL:
+                    magicParticles.SetActive(false);
                     meshRenderer.material = metalMaterial;
                     break;
                 case State.DESTROYED:
+                    magicParticles.SetActive(false);
                     CapsuleCollider theCollider = GetComponent<CapsuleCollider>();
                     theCollider.enabled = false;
                     ChangeModelToTrunk();
@@ -158,6 +167,7 @@ public class Tree : MonoBehaviour
 
     private void Awake()
     {
+        magicParticles = transform.GetChild(0).gameObject;
         parent = GetComponentInParent<Trees>();
         startTransform = transform;
         meshRenderer = GetComponent<MeshRenderer>();
