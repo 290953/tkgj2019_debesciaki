@@ -4,6 +4,8 @@ public class Shrine : MonoBehaviour
 {
     public AudioClip loadPutClip;
     public AudioClip treesHealedClip;
+    public Transform waterLevel;
+    public Vector3 waterLevelDefaultPosition;
     public GameObject WaterRingExplosion;
 
     public int loadsToActivate = 10;
@@ -17,10 +19,7 @@ public class Shrine : MonoBehaviour
 
     int Loads
     {
-        get
-        {
-            return loads;
-        }
+        get { return loads; }
         set
         {
             loads = value;
@@ -33,16 +32,18 @@ public class Shrine : MonoBehaviour
 
 
 
-    Trees trees;
+    Trees trees = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        waterLevelDefaultPosition = waterLevel.transform.localPosition;
         GameObject treesObject = GameObject.Find("Trees");
         if (treesObject != null)
         {
             trees = treesObject.GetComponent<Trees>();
         }
+
         GameObject gameUiObject = GameObject.Find("GameUi");
         if (gameUiObject != null)
         {
@@ -50,6 +51,7 @@ public class Shrine : MonoBehaviour
             gameUi.UpdateShrineMaxLoads(loadsToActivate);
 
         }
+
         InitAudio();
     }
 
@@ -63,20 +65,21 @@ public class Shrine : MonoBehaviour
     public void PutLoad()
     {
         Loads++;
+        waterLevel.localPosition = new Vector3(waterLevel.transform.localPosition.x,
+            waterLevel.transform.localPosition.y + 0.006f, waterLevel.transform.localPosition.z);
         Debug.LogWarning("shrine loads: " + loads);
-        if (Loads >= loadsToActivate)
-        {
-
-            WaterRingExplosion.GetComponent<ParticleSystem>().Play();
-
             Debug.LogWarning("healing trees");
-            trees.HealMetalTrees(treesHealed);
-            Loads = 0;
-            audioSource.PlayOneShot(treesHealedClip);
-        }
-        else
-        {
-            audioSource.PlayOneShot(loadPutClip);
-        }
+            if (Loads >= loadsToActivate)
+            {
+                waterLevel.transform.localPosition = waterLevelDefaultPosition;
+                WaterRingExplosion.GetComponent<ParticleSystem>().Play();
+                FindObjectOfType<Trees>().HealMetalTrees(treesHealed);
+                Loads = 0;
+                audioSource.PlayOneShot(treesHealedClip);
+            }
+            else
+            {
+                audioSource.PlayOneShot(loadPutClip);
+            }
     }
 }
