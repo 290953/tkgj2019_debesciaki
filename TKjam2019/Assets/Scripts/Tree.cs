@@ -98,6 +98,8 @@ public class Tree : MonoBehaviour
                     break;
             }
 
+            parent.OnTreeStateChanged();
+
         }
     }
 
@@ -156,6 +158,7 @@ public class Tree : MonoBehaviour
 
     private void Awake()
     {
+        parent = GetComponentInParent<Trees>();
         startTransform = transform;
         meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponent<MeshFilter>();

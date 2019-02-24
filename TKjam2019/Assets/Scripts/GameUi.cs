@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class GameUi : MonoBehaviour
 {
-    public Text playerLabel;
-    public Text shrineLabel;
-    public Text treesLabel;
+    public Text acidText;
+    public Text magicText;
+    public Text treesText;
+    public Text shrineText;
     public Text gameOverLabel;
-
 
     int acidLoads;
     int waterLoads;
@@ -21,36 +21,35 @@ public class GameUi : MonoBehaviour
     public void UpdateAcidLoads(int loads)
     {
         acidLoads = loads;
-        playerLabel.text = "acid: " + acidLoads + "/" + maxLoads + " magic: " + waterLoads + "/" + maxLoads;
+        acidText.text = acidLoads + "/" + maxLoads;
     }
 
     public void UpdateWaterLoads(int loads)
     {
         waterLoads = loads;
-        playerLabel.text = "acid: " + acidLoads + "/" + maxLoads + " magic: " + waterLoads + "/" + maxLoads;
+        acidText.text = waterLoads + "/" + maxLoads;
     }
 
     public void UpdateMaxLoads(int loads)
     {
         maxLoads = loads;
-        playerLabel.text = "acid: " + acidLoads + "/" + maxLoads + " magic: " + waterLoads + "/" + maxLoads;
     }
 
     public void UpdateShrineMaxLoads(int loads)
     {
         shrineMaxLoads = loads;
-        shrineLabel.text = "shrine: " + shrineLoads + "/" + shrineMaxLoads;
+        shrineText.text = shrineLoads + "/" + shrineMaxLoads;
     }
 
     public void UpdateShrineLoads(int loads)
     {
         shrineLoads = loads;
-        shrineLabel.text = "shrine: " + shrineLoads + "/" + shrineMaxLoads;
+        shrineText.text = shrineLoads + "/" + shrineMaxLoads;
     }
 
     public void UpdateTrees(int trees)
     {
-        treesLabel.text = "trees: " + trees;
+        treesText.text = trees.ToString();
     }
 
     public void SetGameOver()
