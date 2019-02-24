@@ -68,9 +68,10 @@ public class Player : MonoBehaviour
         if (gameUiObject != null)
         {
             gameUi = gameUiObject.GetComponent<GameUi>();
+            gameUi.UpdateMaxLoads(maxLoads);
             gameUi.UpdateWaterLoads(waterLoads);
             gameUi.UpdateAcidLoads(acidLoads);
-            gameUi.UpdateMaxLoads(maxLoads);
+
         }
 
         InitAudio();
