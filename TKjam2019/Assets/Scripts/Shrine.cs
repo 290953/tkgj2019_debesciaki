@@ -66,13 +66,13 @@ public class Shrine : MonoBehaviour
         Debug.LogWarning("shrine loads: " + loads);
         if (Loads >= loadsToActivate)
         {
+
+            WaterRingExplosion.GetComponent<ParticleSystem>().Play();
+
             Debug.LogWarning("healing trees");
             trees.HealMetalTrees(treesHealed);
             Loads = 0;
             audioSource.PlayOneShot(treesHealedClip);
-
-            //GameObject firework = Instantiate(WaterRingExplosion, position, Quaternion.identity);
-            //firework.GetComponent<ParticleSystem>().Play();
         }
         else
         {
