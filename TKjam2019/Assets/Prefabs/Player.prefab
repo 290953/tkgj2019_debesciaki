@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8711743977314247839}
   - component: {fileID: 8711743977314247838}
   - component: {fileID: 936363384}
-  - component: {fileID: 217245864997610492}
+  - component: {fileID: 4760862106815824165}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -69,6 +69,7 @@ MonoBehaviour:
   actionKey: 101
   useWaterClip: {fileID: 8300000, guid: 9506d1e05a8d300429345fd52039e5d6, type: 3}
   useAcidClip: {fileID: 8300000, guid: 9506d1e05a8d300429345fd52039e5d6, type: 3}
+  sinkClip: {fileID: 8300000, guid: c82b53b76903c40b0852b30acde74bee, type: 3}
   playerModel: {fileID: 8711743978292740364}
   followPlayer: {fileID: 0}
   speed: 5
@@ -85,7 +86,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &217245864997610492
+--- !u!135 &4760862106815824165
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

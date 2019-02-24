@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 45302dc48f7de504b85b3412110b15a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   naniteColor: {r: 1, g: 0, b: 0, a: 1}
   metalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   destroyedColor: {r: 0, g: 0, b: 0, a: 1}
-  timeToNanite: 9
+  timeToNanite: 7
   timeToInfect: 6
   timeToSpreadGrow: 2
   timeToNormal: 5
@@ -121,6 +121,18 @@ MonoBehaviour:
   spreadGrowRadius: 2
   maxInfectLoads: 5
   maxSpreadGrowLoads: 5
+  treeMesh: {fileID: 4300000, guid: 2c03802c0b65756499b23ddfd782f679, type: 3}
+  treeMaterial: {fileID: 2100000, guid: 45302dc48f7de504b85b3412110b15a9, type: 2}
+  naniteBarrierPrefab: {fileID: 3643833720068065527, guid: 327bc7b222e4a43bea68a22d939b90df,
+    type: 3}
+  infectedMesh: {fileID: 4300000, guid: 80edd88d1d7b5f14ba369c80bfb4c78d, type: 3}
+  infectedMaterial: {fileID: 2100000, guid: af9a5b5c1ab9e704db488f6f90d7c7e7, type: 2}
+  infectedScale: {x: 2, y: 2, z: 2}
+  naniteBarrier: {fileID: 3643833720068065527, guid: 327bc7b222e4a43bea68a22d939b90df,
+    type: 3}
+  metalMaterial: {fileID: 2100000, guid: fa9a2efd4f1dc45ec806197c1df9d3a2, type: 2}
+  trunkMaterial: {fileID: 2100000, guid: b9e43814a91ac48a180a5f564814b16e, type: 2}
+  trunkMesh: {fileID: 4300000, guid: 2df1fd2d4208d404d882c86128932464, type: 3}
 --- !u!136 &2776148161673585323
 CapsuleCollider:
   m_ObjectHideFlags: 0

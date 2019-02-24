@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     public AudioClip useWaterClip;
     public AudioClip useAcidClip;
+    public AudioClip sinkClip;
 
     private Rigidbody rb;
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     Collider collision;
     GameUi gameUi;
     AudioSource audioSource;
+    bool isDead;
 
 
     int WaterLoads
@@ -86,6 +88,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDead)
+        {
+            return;
+        }
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         if (playerModel != null)
@@ -114,7 +120,16 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        collision = other;
+        if (other.CompareTag("Water"))
+        {
+            gameUi.SetGameOver();
+            isDead = true;
+            audioSource.PlayOneShot(sinkClip);
+        }
+        else
+        {
+            collision = other;
+        }
     }
 
     private void OnTriggerExit(Collider other)
