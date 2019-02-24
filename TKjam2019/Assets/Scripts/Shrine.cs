@@ -6,6 +6,8 @@ public class Shrine : MonoBehaviour
     public AudioClip treesHealedClip;
     public Transform waterLevel;
     public Vector3 waterLevelDefaultPosition;
+    public GameObject WaterRingExplosion;
+
     public int loadsToActivate = 10;
 
     public int treesHealed = 10;
@@ -69,6 +71,13 @@ public class Shrine : MonoBehaviour
         if (Loads >= loadsToActivate)
         {
             waterLevel.transform.localPosition = waterLevelDefaultPosition;
+            Debug.LogWarning("healing trees");
+            trees.HealMetalTrees(treesHealed);
+        if (Loads >= loadsToActivate)
+        {
+
+            WaterRingExplosion.GetComponent<ParticleSystem>().Play();
+
             Debug.LogWarning("healing trees");
             trees.HealMetalTrees(treesHealed);
             Loads = 0;
