@@ -6,11 +6,22 @@ public class DialogueStarter : MonoBehaviour
 {
 	public Dialogue dialogue;
 
-	//TODO: podpiac pod cos sensownego
-	public void startDialogue(){
-	
+	private static DialogueStarter instance;
+
+	public static DialogueStarter Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = GameObject.FindObjectOfType<DialogueStarter>();
+			}
+			return instance;
+		}
+	}
+
+	public void TriggerDialogue()
+	{
 		FindObjectOfType<DialogueHandler>().startDialogue(dialogue);
-
-
 	}
 }
