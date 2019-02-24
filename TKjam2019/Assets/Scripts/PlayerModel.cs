@@ -5,39 +5,28 @@ using UnityEngine;
 
 public class PlayerModel : MonoBehaviour
 {
-    [NonSerialized]
-    public bool isMoving = false;
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private Color acidColor;
+    [SerializeField] private Color holyWaterColor;
 
-    [SerializeField]
-    private float _jumpForce;
-    [SerializeField]
-    public Rigidbody _rigidbody;
 
-    private const string floorTag = "Ground";
+    public void Start()
+    {
+        ChangeColorToDefault();
+    }
     
-    // Start is called before the first frame update
-    void Start()
+    public void ChangeColorToAcid()
     {
-        
+        meshRenderer.material.SetColor("Color_44AE8409", acidColor);
     }
 
-    void Update()
+    public void ChangeColorToWater()
     {
+        meshRenderer.material.SetColor("Color_44AE8409", holyWaterColor);
     }
 
-    private void OnCollisionEnter(Collision other)
+    public void ChangeColorToDefault()
     {
-        if (other.collider.CompareTag(floorTag) && isMoving)
-        {
-            //_rigidbody.AddForce(Vector3.up * _jumpForce);
-        }
-    }
-
-    private void OnCollisionStay(Collision other)
-    {
-        if (other.collider.CompareTag(floorTag) && isMoving)
-        {
-            //_rigidbody.AddForce(Vector3.up * _jumpForce);
-        }
+        meshRenderer.material.SetColor("Color_44AE8409", Color.white);
     }
 }

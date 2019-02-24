@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
         }
         set
         {
+            if(waterLoads == 0) playerModel.ChangeColorToDefault();
             waterLoads = value;
             if (gameUi != null)
             {
@@ -51,6 +52,10 @@ public class Player : MonoBehaviour
         }
         set
         {
+            if (acidLoads == 0)
+            {
+                playerModel.ChangeColorToDefault();
+            }
             acidLoads = value;
             if (gameUi != null)
             {
@@ -96,27 +101,8 @@ public class Player : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         if (playerModel != null)
         {
-            playerModel.isMoving = horizontal != 0 || vertical != 0;
-
-            playerModel.transform.position = new Vector3(transform.position.x, playerModel.transform.position.y, transform.position.z);
-            if (vertical > 0)
-            {
-                playerModel.transform.rotation = Quaternion.Euler(0, -120, 0);
-            }
-            else if(vertical < 0)
-            {
-                playerModel.transform.rotation = Quaternion.Euler(0, -300, 0);
-            }
             
-            if (horizontal > 0)
-            {
-                playerModel.transform.rotation = Quaternion.Euler(0, -30, 0);
-            }
-            else if(horizontal < 0)
-            {
-                playerModel.transform.rotation = Quaternion.Euler(0, -210, 0);
-
-            }
+ 
         }
         Quaternion lol = Quaternion.Euler(0, followPlayer.transform.eulerAngles.y, 0);
 
@@ -186,6 +172,7 @@ public class Player : MonoBehaviour
         if (AcidLoads <= 0 && WaterLoads < maxLoads)
         {
             WaterLoads += source.GetLoad();
+            playerModel.ChangeColorToWater();
         }
     }
 
@@ -196,6 +183,7 @@ public class Player : MonoBehaviour
         if (WaterLoads <= 0 && AcidLoads < maxLoads)
         {
             AcidLoads += source.GetLoad();
+            playerModel.ChangeColorToAcid();
         }
     }
 
