@@ -173,6 +173,7 @@ public class Player : MonoBehaviour
         if (WaterLoads < maxLoads)
         {
             WaterLoads += source.GetLoad();
+            AcidLoads = 0;
             playerModel.ChangeColorToWater();
         }
     }
@@ -184,6 +185,7 @@ public class Player : MonoBehaviour
         if (AcidLoads < maxLoads)
         {
             AcidLoads += source.GetLoad();
+            WaterLoads = 0;
             playerModel.ChangeColorToAcid();
         }
     }
