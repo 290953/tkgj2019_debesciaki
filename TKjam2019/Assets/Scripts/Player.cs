@@ -101,20 +101,24 @@ public class Player : MonoBehaviour
             playerModel.transform.position = new Vector3(transform.position.x, playerModel.transform.position.y, transform.position.z);
             if (vertical > 0)
             {
-                playerModel.transform.rotation = Quaternion.Euler(0, -120, 0);
+                playerModel.transform.rotation = Quaternion.Euler(0, -30, 0);
+                Debug.Log("gora");
             }
             else if(vertical < 0)
             {
-                playerModel.transform.rotation = Quaternion.Euler(0, -300, 0);
+                playerModel.transform.rotation = Quaternion.Euler(0, 148, 0);
+                Debug.Log("dol");
             }
             
             if (horizontal > 0)
             {
-                playerModel.transform.rotation = Quaternion.Euler(0, -30, 0);
+                playerModel.transform.rotation = Quaternion.Euler(0, 60, 0);
+                Debug.Log("prawo");
             }
             else if(horizontal < 0)
             {
-                playerModel.transform.rotation = Quaternion.Euler(0, -210, 0);
+                playerModel.transform.rotation = Quaternion.Euler(0, -120, 0);
+                Debug.Log("lewo");
 
             }
         }
