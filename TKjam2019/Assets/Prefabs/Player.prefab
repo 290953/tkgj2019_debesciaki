@@ -175,8 +175,8 @@ MonoBehaviour:
   waterLoads: 0
   maxLoads: 7
   actionKey: 101
-  useWaterClip: {fileID: 8300000, guid: 9506d1e05a8d300429345fd52039e5d6, type: 3}
-  useAcidClip: {fileID: 8300000, guid: 9506d1e05a8d300429345fd52039e5d6, type: 3}
+  useWaterClip: {fileID: 8300000, guid: 0342b6c9ac3b0444a902afb55ffaa148, type: 3}
+  useAcidClip: {fileID: 8300000, guid: 09a9fe0f325b045db9f8408d063e6206, type: 3}
   sinkClip: {fileID: 8300000, guid: c82b53b76903c40b0852b30acde74bee, type: 3}
   playerModel: {fileID: 236600345}
   followPlayer: {fileID: 0}

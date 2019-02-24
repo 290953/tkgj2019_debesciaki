@@ -35,8 +35,12 @@ public class Player : MonoBehaviour
         }
         set
         {
-            if(waterLoads == 0) playerModel.ChangeColorToDefault();
+
             waterLoads = value;
+            if (waterLoads == 0 && acidLoads == 0)
+            {
+                playerModel.ChangeColorToDefault();
+            }
             if (gameUi != null)
             {
                 gameUi.UpdateWaterLoads(waterLoads);
@@ -52,11 +56,11 @@ public class Player : MonoBehaviour
         }
         set
         {
-            if (acidLoads == 0)
+            acidLoads = value;
+            if (waterLoads == 0 && acidLoads == 0)
             {
                 playerModel.ChangeColorToDefault();
             }
-            acidLoads = value;
             if (gameUi != null)
             {
                 gameUi.UpdateAcidLoads(acidLoads);
