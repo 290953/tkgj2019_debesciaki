@@ -101,8 +101,9 @@ public class Player : MonoBehaviour
             //        playerModel._rigidbody.velocity = new Vector3(horizontal * speed, playerModel._rigidbody.velocity.y, vertical * speed);
             playerModel.transform.position = new Vector3(transform.position.x, playerModel.transform.position.y, transform.position.z);
         }
-        rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
+        Quaternion lol = Quaternion.Euler(0, followPlayer.transform.eulerAngles.y, 0);
 
+           rb.velocity =  lol * new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
         if (followPlayer != null)
         {
             followPlayer.Follow(transform.position, horizontal, vertical);
