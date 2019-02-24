@@ -50,7 +50,7 @@ public class Trees : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Menu");
         }
 
         if (Input.GetMouseButtonUp(0))
