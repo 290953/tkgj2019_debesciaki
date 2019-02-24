@@ -9,7 +9,7 @@ public class GameUi : MonoBehaviour
     public Text magicText;
     public Text treesText;
     public Text shrineText;
-    public Text gameOverLabel;
+    public GameObject gameOverLabel;
 
     int acidLoads;
     int waterLoads;
@@ -54,6 +54,6 @@ public class GameUi : MonoBehaviour
 
     public void SetGameOver()
     {
-        gameOverLabel.gameObject.SetActive(true);
+        gameOverLabel.SetActive(true);
     }
 }
