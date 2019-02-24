@@ -188,9 +188,10 @@ public class Player : MonoBehaviour
     {
         Source source = col.GetComponent<Source>();
         Debug.LogWarning("adding water");
-        if (AcidLoads <= 0 && WaterLoads < maxLoads)
+        if (WaterLoads < maxLoads)
         {
             WaterLoads += source.GetLoad();
+            AcidLoads = 0;
         }
     }
 
@@ -198,9 +199,10 @@ public class Player : MonoBehaviour
     {
         Source source = col.GetComponent<Source>();
         Debug.LogWarning("adding acid");
-        if (WaterLoads <= 0 && AcidLoads < maxLoads)
+        if (AcidLoads < maxLoads)
         {
             AcidLoads += source.GetLoad();
+            WaterLoads = 0;
         }
     }
 
