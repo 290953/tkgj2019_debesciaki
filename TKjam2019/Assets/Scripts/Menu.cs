@@ -6,7 +6,7 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("Forest");
+        SceneManager.LoadScene("Cutscene");
     }
 
     public void QuitGame()

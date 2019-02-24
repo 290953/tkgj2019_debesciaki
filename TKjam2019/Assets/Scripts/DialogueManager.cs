@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,19 +12,19 @@ public class DialogueManager : MonoBehaviour
     public Text nameText;
     public Text dialogueText;
 
-    private Queue<string> sentences;
+    private Queue<Sentence> sentences;
 
     void Start()
     {
-        sentences = new Queue<string>();
+        sentences = new Queue<Sentence>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        nameText.text = dialogue.name;
+        //nameText.text = dialogue.name;
         sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+        foreach (Sentence sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -39,9 +40,10 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        string sentence = sentences.Dequeue();
+        Sentence sentence = sentences.Dequeue();
         StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+        nameText.text = sentence.name;
+        StartCoroutine(TypeSentence(sentence.text));
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -59,5 +61,6 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         uiDialogue.SetActive(false);
+        SceneManager.LoadScene("Forest");
     }
 }
