@@ -4,7 +4,8 @@ public class Shrine : MonoBehaviour
 {
     public AudioClip loadPutClip;
     public AudioClip treesHealedClip;
-
+    public Transform waterLevel;
+    public Vector3 waterLevelDefaultPosition;
     public int loadsToActivate = 10;
 
     public int treesHealed = 10;
@@ -37,6 +38,7 @@ public class Shrine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        waterLevelDefaultPosition = waterLevel.transform.localPosition;
         GameObject treesObject = GameObject.Find("Trees");
         if (treesObject != null)
         {
@@ -62,9 +64,11 @@ public class Shrine : MonoBehaviour
     public void PutLoad()
     {
         Loads++;
+        waterLevel.localPosition = new Vector3(waterLevel.transform.localPosition.x, waterLevel.transform.localPosition.y + 0.015f, waterLevel.transform.localPosition.z);
         Debug.LogWarning("shrine loads: " + loads);
         if (Loads >= loadsToActivate)
         {
+            waterLevel.transform.localPosition = waterLevelDefaultPosition;
             Debug.LogWarning("healing trees");
             trees.HealMetalTrees(treesHealed);
             Loads = 0;
