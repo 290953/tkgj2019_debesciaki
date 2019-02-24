@@ -106,6 +106,7 @@ public class Tree : MonoBehaviour
     private MeshFilter meshFilter;
     int infectLoads;
     int spreadGrowLoads;
+    Trees parent;
 
     public bool SetDestroyed()
     {
