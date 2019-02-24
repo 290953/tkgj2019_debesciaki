@@ -98,8 +98,25 @@ public class Player : MonoBehaviour
         {
             playerModel.isMoving = horizontal != 0 || vertical != 0;
 
-            //        playerModel._rigidbody.velocity = new Vector3(horizontal * speed, playerModel._rigidbody.velocity.y, vertical * speed);
             playerModel.transform.position = new Vector3(transform.position.x, playerModel.transform.position.y, transform.position.z);
+            if (vertical > 0)
+            {
+                playerModel.transform.rotation = Quaternion.Euler(0, -120, 0);
+            }
+            else if(vertical < 0)
+            {
+                playerModel.transform.rotation = Quaternion.Euler(0, -300, 0);
+            }
+            
+            if (horizontal > 0)
+            {
+                playerModel.transform.rotation = Quaternion.Euler(0, -30, 0);
+            }
+            else if(horizontal < 0)
+            {
+                playerModel.transform.rotation = Quaternion.Euler(0, -210, 0);
+
+            }
         }
         Quaternion lol = Quaternion.Euler(0, followPlayer.transform.eulerAngles.y, 0);
 

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Temple
-  m_Shader: {fileID: 4800000, guid: 762e457cba8354d54bdc2e433ae8a287, type: 3}
+  m_Shader: {fileID: 4800000, guid: d8e11392f8183e943a3b397239a73573, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -68,6 +68,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_8A5BDFA8: {r: 0, g: 8.847637, b: 10.55606, a: 0}
+    - Color_949A0F2: {r: 0.51886785, g: 0.31229788, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
