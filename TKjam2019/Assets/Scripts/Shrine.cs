@@ -4,6 +4,7 @@ public class Shrine : MonoBehaviour
 {
     public AudioClip loadPutClip;
     public AudioClip treesHealedClip;
+    public GameObject WaterRingExplosion;
 
     public int loadsToActivate = 10;
 
@@ -69,6 +70,9 @@ public class Shrine : MonoBehaviour
             trees.HealMetalTrees(treesHealed);
             Loads = 0;
             audioSource.PlayOneShot(treesHealedClip);
+
+            //GameObject firework = Instantiate(WaterRingExplosion, position, Quaternion.identity);
+            //firework.GetComponent<ParticleSystem>().Play();
         }
         else
         {
