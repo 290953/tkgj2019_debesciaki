@@ -4,6 +4,7 @@ public class Shrine : MonoBehaviour
 {
     public AudioClip loadPutClip;
     public AudioClip treesHealedClip;
+    public GameObject WaterRingExplosion;
 
     public int loadsToActivate = 10;
 
@@ -65,6 +66,9 @@ public class Shrine : MonoBehaviour
         Debug.LogWarning("shrine loads: " + loads);
         if (Loads >= loadsToActivate)
         {
+
+            WaterRingExplosion.GetComponent<ParticleSystem>().Play();
+
             Debug.LogWarning("healing trees");
             trees.HealMetalTrees(treesHealed);
             Loads = 0;
