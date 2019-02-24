@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueHandler : MonoBehaviour {
 
@@ -11,12 +12,13 @@ public class DialogueHandler : MonoBehaviour {
 	private Queue<string> sentences;
 	private Queue<string> speakers;
     
-	protected DialogueHandler() { }
 
 	// Start is called before the first frame update
     void Start() {
 		sentences= new Queue<string>();
 		speakers= new Queue<string>();
+
+
     }
 
 	public void startDialogue(Dialogue dialogue){
@@ -38,7 +40,7 @@ public class DialogueHandler : MonoBehaviour {
 	public void nextSentence(){
 
 		if(sentences.Count == 0){
-			//TODO: zamykanie systemu dialogowego
+			nextScene();
 			return;
 		}
 
@@ -60,5 +62,12 @@ public class DialogueHandler : MonoBehaviour {
 			sentenceText.text += letter;
 			yield return null;
 		}
+
+		yield return new WaitForSeconds(2f);
+		nextSentence();
+	}
+
+	public void nextScene(){
+		SceneManager.LoadScene("Forest");
 	}
 }
