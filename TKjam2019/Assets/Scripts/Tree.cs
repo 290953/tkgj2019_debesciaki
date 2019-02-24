@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
@@ -22,10 +23,24 @@ public class Tree : MonoBehaviour
     public int maxInfectLoads = 5;
     public int maxSpreadGrowLoads = 5;
 
-    [Space] [SerializeField] private Mesh infectedMesh;
+
+    [Space] [Header("Default")]
+    private Transform startTransform;
+    [SerializeField] private Mesh treeMesh;
+    [SerializeField] private Material treeMaterial;
+    
+    [Space] [SerializeField] private NaniteBarrier naniteBarrierPrefab;
+    [SerializeField] private Mesh infectedMesh;
     [SerializeField] private Material infectedMaterial;
     [SerializeField] private Vector3 infectedScale;
     [SerializeField] private NaniteBarrier naniteBarrier;
+
+    [Space] [SerializeField] private Material metalMaterial;
+
+    [Space] [SerializeField] private Material trunkMaterial;
+    [SerializeField] private Mesh trunkMesh;
+    
+    
 
     public enum State
     {
@@ -55,11 +70,11 @@ public class Tree : MonoBehaviour
             switch (state)
             {
                 case State.GROWING:
-                    meshRenderer.material.color = growingColor;
+                    StartCoroutine(Grow());
                     Invoke("SetNormal", timeToNormal);
                     break;
                 case State.NORMAL:
-                    meshRenderer.material.color = normalColor;
+                    ChangeModelToTree();
                     break;
                 case State.MAGICAL:
                     meshRenderer.material.color = magicalColor;
@@ -74,12 +89,12 @@ public class Tree : MonoBehaviour
                     Invoke("Infect", timeToInfect);
                     break;
                 case State.METAL:
-                    meshRenderer.material.color = metalColor;
+                    meshRenderer.material = metalMaterial;
                     break;
                 case State.DESTROYED:
                     CapsuleCollider theCollider = GetComponent<CapsuleCollider>();
                     theCollider.enabled = false;
-                    meshRenderer.material.color = destroyedColor;
+                    ChangeModelToTrunk();
                     break;
             }
 
@@ -88,6 +103,7 @@ public class Tree : MonoBehaviour
 
     State state;
     MeshRenderer meshRenderer;
+    private MeshFilter meshFilter;
     int infectLoads;
     int spreadGrowLoads;
 
@@ -139,7 +155,11 @@ public class Tree : MonoBehaviour
 
     private void Awake()
     {
+        startTransform = transform;
         meshRenderer = GetComponent<MeshRenderer>();
+        meshFilter = GetComponent<MeshFilter>();
+        naniteBarrier = Instantiate(naniteBarrierPrefab);
+        naniteBarrier.transform.position = new Vector3(transform.position.x, 0.55f, transform.position.z);
         naniteBarrier.OnNaniteBarrierFullyOpaque += ChangeModelToNanite;
         MyState = State.NORMAL;
     }
@@ -204,9 +224,35 @@ public class Tree : MonoBehaviour
 
     void ChangeModelToNanite()
     {
-        GetComponent<MeshFilter>().mesh = infectedMesh;
-        GetComponent<MeshRenderer>().material = infectedMaterial;
+        meshFilter.mesh = infectedMesh;
+        meshRenderer.material = infectedMaterial;
         transform.localScale = infectedScale;
+    }
+
+    void ChangeModelToTree()
+    {
+        meshFilter.mesh = treeMesh;
+        meshRenderer.material = treeMaterial;
+        transform.position = startTransform.position;
+        transform.localScale = startTransform.localScale;
+    }
+
+    void ChangeModelToTrunk()
+    {
+        meshFilter.mesh = trunkMesh;
+        meshRenderer.material = trunkMaterial;
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + 0.01f, transform.localPosition.z);
+    }
+
+    IEnumerator Grow()
+    {
+        float currentYScale = 0;
+        while (currentYScale < 3f)
+        {
+            currentYScale += 0.01f;
+            transform.localScale = new Vector3(transform.localScale.x, currentYScale, transform.localScale.z);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     List<Tree> GetTreesInRange(float range)
