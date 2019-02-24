@@ -61,6 +61,13 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         uiDialogue.SetActive(false);
+        StartCoroutine(LoadGameplay());
+
+    }
+
+    IEnumerator LoadGameplay()
+    {
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene("Forest");
     }
 }
