@@ -26,8 +26,6 @@ GameObject:
   - component: {fileID: 8711743977314247839}
   - component: {fileID: 8711743977314247838}
   - component: {fileID: 936363384}
-  - component: {fileID: 4760862106815824165}
-  - component: {fileID: 4215095008844572565}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -89,32 +87,6 @@ MonoBehaviour:
   followPlayer: {fileID: 0}
   speed: 5
 --- !u!135 &936363384
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711743977314247904}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &4760862106815824165
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711743977314247904}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &4215095008844572565
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
